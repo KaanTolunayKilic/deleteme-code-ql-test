@@ -1,0 +1,36 @@
+type Talkshow {
+  id: ID!
+  kanal: String!
+  host: String!
+  queries: [SearchQuery!]!
+}
+
+type SearchQuery {
+  id: ID!
+  tags: [String!]!
+  active: Boolean!
+  talkshow: Talkshow!
+}
+
+input NewTalkshow {
+  kanal: String!
+  host: String!
+}
+
+input NewSearchQuery {
+  tags: [String!]!
+  active: Boolean!
+}
+
+type Query {
+  talkshows: [Talkshow!]!
+}
+
+type Mutation {
+  createTalkshow(newTalkshow: NewTalkshow!): Talkshow!
+  addQueryToTalkshow(newSearchQuery: NewSearchQuery!, talkshow: ID!): Talkshow!
+  toggleSearchQueryState(
+    searchQueryId: ID!
+    targetState: Boolean!
+  ): SearchQuery!
+}
